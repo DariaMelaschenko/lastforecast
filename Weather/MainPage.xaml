@@ -1,0 +1,95 @@
+﻿<Page
+    x:Class="Weather.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Weather"
+    xmlns:logic="using:Weather.Logic"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" Loaded="Page_Loaded">
+    
+    <Page.BottomAppBar>
+        <CommandBar>
+            <CommandBar.Content>
+                <Grid/>
+            </CommandBar.Content>
+            <AppBarButton x:Name="Settings" Icon="Setting" Label="Settings" Click="AppBarButton_Click"/>
+            <AppBarButton x:Name="Update" Icon="Refresh" Label="Update" Click="appBarButton_Click_1"/>
+        </CommandBar>
+    </Page.BottomAppBar>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <StackPanel x:Name="Window" Visibility="Collapsed">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
+            <TextBlock FontSize="30" Text="{x:Bind ViewModel.city, Mode=OneWay}"/>
+            <TextBlock FontSize="30" Text=","/>
+            <TextBlock Margin="10,0,0,0" HorizontalAlignment="Left" FontSize="30" Text="{x:Bind ViewModel.country, Mode=OneWay}"/>
+        </StackPanel>
+
+        <TextBlock HorizontalAlignment ="Center" Text="{x:Bind ViewModel.selected_date, Mode=OneWay}" Margin="0,10,0,0"/>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment ="Center" Margin="0,10,0,0">
+            <Image VerticalAlignment="Bottom" HorizontalAlignment="Center" Source="{x:Bind ViewModel.selected_picture, Mode=OneWay}"/>
+            <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="40" Text="{x:Bind ViewModel.selected_temp_day, Mode=OneWay}"/>
+            <TextBlock x:Name="Temp_night" Margin="10,0,0,0" VerticalAlignment="Bottom" FontSize="30" Visibility="Collapsed" Text="{x:Bind ViewModel.selected_temp_night, Mode=OneWay}"/>
+            <TextBlock Margin="10,0,0,0" VerticalAlignment="Bottom" FontSize="30" Text="{x:Bind ViewModel.units, Mode=OneWay}"/>
+        </StackPanel>
+
+        <TextBlock Margin="0,10,0,0" HorizontalAlignment="Center" FontSize="30" Text="{x:Bind ViewModel.selected_description, Mode=OneWay}"/>
+        
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+            <TextBlock Text="Updated"/>
+            <TextBlock Margin="10,0,0,0" Text="{x:Bind ViewModel.updated, Mode=OneWay}"/>
+        </StackPanel>    
+        
+            <Grid HorizontalAlignment ="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+                <!--First row-->
+            <TextBlock Margin="10,0,0,0" Grid.Row="0" Grid.Column="0" FontSize="10" VerticalAlignment="Bottom" HorizontalAlignment="Center" Text="Minimal temperature "/>
+            <TextBlock Margin="10,0,0,0" Grid.Row="0" Grid.Column="1" FontSize="10" VerticalAlignment="Bottom" HorizontalAlignment="Center" Text="{x:Bind ViewModel.selected_temp_min, Mode=OneWay}"/>
+            <TextBlock Margin="10,0,0,0" Grid.Row="0" Grid.Column="2" FontSize="10" VerticalAlignment="Bottom" HorizontalAlignment="Center" Text="Pressure "/>
+            <TextBlock Margin="10,0,0,0" Grid.Row="0" Grid.Column="3" FontSize="10" VerticalAlignment="Bottom" HorizontalAlignment="Center" Text="{x:Bind ViewModel.selected_pressure, Mode=OneWay}"/>
+            <TextBlock Margin="10,0,0,0" Grid.Row="0" Grid.Column="4" FontSize="10" VerticalAlignment="Bottom" HorizontalAlignment="Center" Text="Wind speed "/>
+            <TextBlock Margin="10,0,0,0" Grid.Row="0" Grid.Column="5" FontSize="10" VerticalAlignment="Bottom" HorizontalAlignment="Center" Text="{x:Bind ViewModel.selected_wind_speed, Mode=OneWay}"/> 
+            <!--Second row-->
+            <TextBlock Margin="10,0,0,0" Grid.Row="1" Grid.Column="0" FontSize="10" VerticalAlignment="Bottom" HorizontalAlignment="Center" Text="Maximal temperature "/>
+            <TextBlock Margin="10,0,0,0" Grid.Row="1" Grid.Column="1" FontSize="10" VerticalAlignment="Bottom" HorizontalAlignment="Center" Text="{x:Bind ViewModel.selected_temp_max, Mode=OneWay}"/>
+            <TextBlock Margin="10,0,0,0" Grid.Row="1" Grid.Column="2" FontSize="10" VerticalAlignment="Bottom" HorizontalAlignment="Center" Text="Humidity "/>
+            <TextBlock Margin="10,0,0,0" Grid.Row="1" Grid.Column="3" FontSize="10" VerticalAlignment="Bottom" HorizontalAlignment="Center" Text="{x:Bind ViewModel.selected_humidity, Mode=OneWay}"/>
+            <TextBlock Margin="10,0,0,0" Grid.Row="1" Grid.Column="4" FontSize="10" VerticalAlignment="Bottom" HorizontalAlignment="Center" Text="Cloud cover "/>
+            <TextBlock Margin="10,0,0,0" Grid.Row="1" Grid.Column="5" FontSize="10" VerticalAlignment="Bottom" HorizontalAlignment="Center" Text="{x:Bind ViewModel.selected_clouds, Mode=OneWay}"/>
+        </Grid>
+
+        <GridView x:Name="Forecast" HorizontalAlignment="Center" ItemsSource="{x:Bind ViewModel.forecast}" Margin="0,30,0,0" IsItemClickEnabled="True" ItemClick="Forecast_ItemClick">
+            <GridView.ItemTemplate>
+                <DataTemplate x:DataType="logic:WeatherNotToday">
+                    <StackPanel Height="120" Width="120">
+                        <TextBlock Text="{x:Bind Day}" FontSize="15" HorizontalAlignment="Center"/>
+                        <Image Height="50" Width="50" HorizontalAlignment="Center" Source="{x:Bind icon}"/>
+                        
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock FontSize="20" VerticalAlignment="Bottom" HorizontalAlignment="Center" Text="{x:Bind temp.day}"/>
+                            <TextBlock Margin="10,0,0,0" FontSize="15" VerticalAlignment="Bottom" HorizontalAlignment="Center" Text="{x:Bind temp.night}"/>
+                        </StackPanel>
+
+                        <TextBlock Text="{x:Bind description}" FontSize="15" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView>
+        <Grid HorizontalAlignment="Left" Height="100" Margin="72,64,0,0" VerticalAlignment="Top" Width="100"/>
+        </StackPanel>
+    </Grid>
+</Page>

@@ -1,0 +1,74 @@
+﻿<Page
+    x:Class="Weather.Settings"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Weather"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <Page.BottomAppBar>
+        <CommandBar>
+            <CommandBar.Content>
+                <Grid/>
+            </CommandBar.Content>
+            <AppBarButton x:ConnectionId='1' x:Name="Home" Icon="Home" Label="Main page"                   />
+        </CommandBar>
+    </Page.BottomAppBar>
+
+    <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+        <TextBlock Text="Units:" Margin="20,20,0,0" FontSize="30"/>
+
+        <StackPanel>
+            <RadioButton x:ConnectionId='13' x:Name="Fahrenheit" GroupName="Units" Content="Fahrenheit" HorizontalAlignment="Left" Margin="20,20,0,0" VerticalAlignment="Top"/>
+            <RadioButton x:ConnectionId='14' x:Name="Celsius" GroupName="Units" Content="Celsius" HorizontalAlignment="Left" Margin="20,20,0,0" VerticalAlignment="Top"/>
+            <RadioButton x:ConnectionId='15' x:Name="Kelvin" GroupName="Units" Content="Kelvin" HorizontalAlignment="Left" Margin="20,20,0,0" VerticalAlignment="Top"/>
+        </StackPanel>
+
+        <TextBlock Text="Location:" Margin="20,20,0,0" FontSize="30"/>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" HorizontalAlignment="Center" Margin="10">
+                <RadioButton x:ConnectionId='9' x:Name="City" GroupName="Location" Content="Set by city name" HorizontalAlignment="Left" Margin="20,20,0,0" VerticalAlignment="Top"                              />
+                <RadioButton x:ConnectionId='10' x:Name="CityAndCountry" GroupName="Location" Content="Set by city and country name" HorizontalAlignment="Left" Margin="20,20,0,0" VerticalAlignment="Top"                                />
+                <RadioButton x:ConnectionId='11' x:Name="CityId" GroupName="Location" Content="Set by city id" HorizontalAlignment="Left" Margin="20,20,0,0" VerticalAlignment="Top"                                />
+                <RadioButton x:ConnectionId='12' x:Name="CurrentLocation" GroupName="Location" Content="Set by my current location" HorizontalAlignment="Left" Margin="20,20,0,0" VerticalAlignment="Top"                                />
+            </StackPanel>
+
+            <StackPanel x:ConnectionId='2' x:Name="ByCity" Margin="30,0,0,0" Grid.Column="1" HorizontalAlignment="Left" Visibility="Collapsed" Orientation="Horizontal">
+                <TextBlock FontSize="20" Text="City:"/>
+                <TextBox x:ConnectionId='8' x:Name="CityBox" Margin="10,0,0,0" Width="200" Height="25" VerticalAlignment="Top"/>
+            </StackPanel>
+
+            <Grid x:ConnectionId='3' x:Name="ByCityAndCountry" Margin="30,0,0,0" Grid.Column="1" HorizontalAlignment="Left" Visibility="Collapsed">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="0" Grid.Column="0" FontSize="20" Text="City:"/>
+                <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,10,0,0" FontSize="20" Text="Country (ISO 3166):"/>
+                <TextBox x:ConnectionId='6' x:Name="CityBox2" Grid.Row="0" Grid.Column="1" Margin="10,0,0,0" Width="200" Height="25" VerticalAlignment="Top"/>
+                <TextBox x:ConnectionId='7' x:Name="CountryBox" Grid.Row="1" Grid.Column="1" Margin="10,10,0,0" Width="200" Height="25" VerticalAlignment="Top"/>
+            </Grid>
+
+            <StackPanel x:ConnectionId='4' x:Name="ByCityID" Margin="30,0,0,0" Grid.Column="1" HorizontalAlignment="Left" Visibility="Collapsed" Orientation="Horizontal">
+                <TextBlock FontSize="20" Text="City ID:"/>
+                <TextBox x:ConnectionId='5' x:Name="CityIDBox" Margin="10,0,0,0" Width="200" Height="25" VerticalAlignment="Top"/>
+            </StackPanel>
+        </Grid>
+
+    </StackPanel>
+</Page>
+

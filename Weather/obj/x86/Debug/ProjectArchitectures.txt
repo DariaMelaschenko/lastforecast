@@ -1,0 +1,2 @@
+C:\Users\Александр Сергеевич\Desktop\Проекты\Kodisoft\Mouse\Mouse\Mouse.vcxproj;x86
+C:\Users\Александр Сергеевич\Desktop\Проекты\Kodisoft\Weather\Weather\Weather.csproj;x86
